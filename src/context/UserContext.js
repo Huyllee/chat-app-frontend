@@ -40,6 +40,11 @@ export const UserContextProvider = ({ children }) => {
     [registerInfo]
   );
 
+  const logoutUser = useCallback(() => {
+    localStorage.removeItem("user");
+    setUser(null);
+  }, []);
+
   const updateRegisterInfo = useCallback((info) => {
     setRegisterInfo(info);
   }, []);
@@ -53,6 +58,7 @@ export const UserContextProvider = ({ children }) => {
         updateRegisterInfo,
         registerError,
         registerLoading,
+        logoutUser,
       }}
     >
       {children}
