@@ -4,7 +4,7 @@ import { UserContext } from "../../context/UserContext";
 
 const PotentialChats = () => {
   const { user } = useContext(UserContext);
-  const { potentialChats, createChat } = useContext(ChatContext);
+  const { potentialChats, createChat, onlineUsers } = useContext(ChatContext);
 
   return (
     <>
@@ -16,7 +16,13 @@ const PotentialChats = () => {
             onClick={() => createChat(user._id, u._id)}
           >
             {u.name}
-            <span className="user-online"></span>
+            <span
+              className={
+                onlineUsers?.some((user) => user?.userId === u._id)
+                  ? "user-online"
+                  : ""
+              }
+            ></span>
           </div>
         ))}
       </div>
