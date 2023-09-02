@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Stack } from "react-bootstrap";
 import moment from "moment";
 import InputEmoji from "react-input-emoji";
@@ -12,6 +12,11 @@ const ChatBox = () => {
     useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
+  const scroll = useRef();
+
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   if (!recipientUser)
     return (
@@ -39,6 +44,7 @@ const ChatBox = () => {
                 ? "message self align-self-end flex-grow-0"
                 : "message align-self-start flex-grow-0"
             }`}
+            ref={scroll}
           >
             <span>{message.text}</span>
             <span className="message-footer">
